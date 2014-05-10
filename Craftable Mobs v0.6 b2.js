@@ -4,7 +4,7 @@ ModPE.overrideTexture("images/items.meta","http://dl.dropbox.com/s/jpgvuv8l4rgzv
 ModPE.overrideTexture("images/items-opaque.png","http://dl.dropbox.com/s/6xv9uok3akveyjd/items-opaque-2.png");
 ModPE.overrideTexture("images/mob/wolf.png","http://dl.dropbox.com/s/31xgqvx7iety4l9/wolf.png");
 ModPE.overrideTexture("images/mob/wither.png","http://dl.dropbox.com/s/u95yjcfcg051t1n/wither%20skin.png");
-
+ModPE.overrideTexture("images/mob/enderman.png","http://i.imgur.com/UXzvOmn.png");
 var r = 0;
 var drop = Math.floor((Math.random()*4)+1);
 var heads = [496,497,498,499,500,501,502,503,504,493,494];
@@ -32,6 +32,7 @@ ModPE.setItem(501,"head_chicken",0,"Chicken"); //10
 ModPE.setItem(502,"head_sheep",0,"Sheep"); //13
 ModPE.setItem(503,"head_spider",0,"Spider"); //35
 ModPE.setItem(504,"head_pig",0,"Pig"); //12
+ModPE.setItem(505,"ender_pearl", 0,"Enderman");
 ModPE.setFoodItem(493,"spider_eye",0,-2,"Spider eye");
 ModPE.setFoodItem(494,"rotten_flesh",0,-1,"Rotten Flesh");
 
@@ -45,7 +46,8 @@ Item.addCraftRecipe(498,2,0,[352,4,0,262,4,0,261,1,0]); //skeleton
 Item.addCraftRecipe(499,4,0,[289,8,0,494,1,0]); //creeper
 Item.addCraftRecipe(496,2,0,[35,4,0,502,1,0]);
 Item.addCraftRecipe(495,2,0,[263,4,0,272,1,0,263,4,0]);
-
+Item.addCraftRecipe(505,2,0,[318,4,0,332,4,0,337,1,0]);
+//Enderman
 function useItem(x, y, z, item, block, side)
 {
 if(item == 501)
@@ -72,6 +74,12 @@ if(item == 504)
 {
 Level.spawnMob(x, y+1, z, 12, "mob/pig.png");
 addItemInventory(item,-1,0);
+}
+if(item == 505)
+{
+var ender = Level.spawnMob(x, y+1, z,35,"mob/enderman.png");
+Entity.setRenderType(ender,EndermanRenderType.renderType);
+addItemInventory(item,-1, 0);
 }
 if(item == 497)
 {
@@ -109,6 +117,7 @@ function deathHook(murderer, victim)
 {
 var en = Entity.getEntityTypeId(victim);
 
+
 if(en == 32)
 {
 if(victim !== Wither)
@@ -130,6 +139,70 @@ Level.dropItem(Entity.getX(victim), Entity.getY(victim) + 1, Entity.getZ(victim)
 }
 }
 
+function attackHook(attacker, victim)
+{
+if(Entity.getEntityTypeId(victim)==35) 
+	{
+		var Teleport = Math.floor((Math.random()*4)+1);
+		switch(Teleport)
+		{
+			case 1:
+				setPosition(victim, getPlayerX(),getPlayerY()+2, getPlayerZ()+5);
+			break;
+		
+			case 2:
+				setPosition(victim, getPlayerX(),getPlayerY()+2, getPlayerZ()-5);
+			break;
+		
+			case 3:
+				setPosition(victim, getPlayerX()+5,getPlayerY()+2, getPlayerZ());
+			break;
+		
+			case 4:
+				setPosition(victim, getPlayerX()-5,getPlayerY()+2, getPlayerZ());
+			break;
+		}
+}
+}
+function addEndermanRenderType(renderer) 
+{
+    var model = renderer.getModel();
+     
+    var head = model.getPart("head");
+    var body = model.getPart("body");
+    var rarm = model.getPart("rightArm");
+    var larm = model.getPart("leftArm");
+    var rleg = model.getPart("rightLeg");
+    var lleg = model.getPart("leftLeg");
+     
+    head.clear();
+    head.setTextureOffset(0, 0);
+    head.addBox(-4, -24, -4, 8, 8, 8);
+ 
+    body.clear();
+    body.setTextureOffset(0, 12);
+    body.addBox(-4, -16, -2, 8, 12, 4);
+ 
+    rarm.clear();
+    rarm.setTextureOffset(0, 12);
+    rarm.addBox(-1, -18, -2, 2, 30, 2);
+ 
+    larm.clear();
+    larm.setTextureOffset(0, 12);
+    larm.addBox(-1,-18,-2, 2, 30, 2);
+ 
+    rleg.clear();
+    rleg.setTextureOffset(0, 12);
+    rleg.addBox(-1, -18, 0, 2, 30, 2);
+ 
+    lleg.clear();
+    lleg.setTextureOffset(0, 12);
+    lleg.addBox(-1, -18, 0, 2, 30, 2);
+}
+ 
+var EndermanRenderType = Renderer.createHumanoidRenderer();
+addEndermanRenderType(EndermanRenderType);
+
 function addWolfRenderType(renderer)
 {
  
@@ -145,7 +218,6 @@ var lLeg = model.getPart("leftLeg");
  
 head.clear();
 head.setTextureOffset(0,0);
-head.setRotationPoint(0,9,-1);
 head.addBox(0,9,-9,6,6,4,var2); //head
 head.setTextureOffset(48,0);
 head.addBox(0,7,-8,2,2,1,var2); //ear
