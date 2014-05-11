@@ -1,7 +1,7 @@
 //craftable animals mod
 //by Darkserver and Thecactigod
 ModPE.overrideTexture("images/mob/ocelot.png","http://i.imgur.com/PVdsLnB.png"); 
-ModPE.overrideTexture("images/items.meta","http://dl.dropboxusercontent.com/s/tqbzqhl5l67o95m/heads.meta");
+ModPE.overrideTexture("images/items.meta","http://dl.dropbox.com/s/tqbzqhl5l67o95m/heads.meta");
 ModPE.overrideTexture("images/items-opaque.png","http://dl.dropbox.com/s/yrkc2hen9ym72mv/items-opaque.png");
 ModPE.overrideTexture("images/mob/wolf.png","http://dl.dropbox.com/s/31xgqvx7iety4l9/wolf.png");
 ModPE.overrideTexture("images/mob/wither.png","http://dl.dropbox.com/s/u95yjcfcg051t1n/wither%20skin.png");
