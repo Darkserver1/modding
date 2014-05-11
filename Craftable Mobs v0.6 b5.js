@@ -56,7 +56,9 @@ Item.addCraftRecipe(495,2,0,[263,4,0,272,1,0,263,4,0]);
 Item.addCraftRecipe(505,7,0,[318,4,0,332,4,0,337,1,0]);
 //in 0.7 will use enderpearls but we have to make a way to get them
 //Enderman
-Item.addCraftRecipe(506,1,0[35,1,0,319,1,0]); //ocelot
+Item.addCraftRecipe(506,1,0,[35,1,0,319,1,0]); //ocelot
+Item.addCraftRecipe(507,2,0,[3,3,0,296,3,0]); //villager
+Item.addCraftRecipe(508,4,0,[283,1,0,494,4,0,266,4,0]); //pigmen
 
 function useItem(x, y, z, item, block, side)
 {
@@ -132,6 +134,11 @@ Wither = Level.spawnMob(x, y+1, z, 32, "mob/wither.png");
 Entity.setCarriedItem(Wither, 272, 1, 0);
 Entity.setHealth(Wither, 50);
 Entity.setRenderType(Wither,12);
+addItemInventory(item,-1,0);
+}
+if(item == 508)
+{
+Level.spawnMob(x, y+1, z, 36, "mob/pigzombie.png");
 addItemInventory(item,-1,0);
 }
 }
