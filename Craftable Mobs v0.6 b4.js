@@ -1,5 +1,6 @@
 //craftable animals mod
 //by Darkserver
+ModPE.overrideTexture("images/mob/ocelot.png","http://i.imgur.com/PVdsLnB.png"); 
 ModPE.overrideTexture("images/items.meta","http://dl.dropbox.com/s/jpgvuv8l4rgzvsd/items.meta");
 ModPE.overrideTexture("images/items-opaque.png","http://dl.dropbox.com/s/6xv9uok3akveyjd/items-opaque-2.png");
 ModPE.overrideTexture("images/mob/wolf.png","http://dl.dropbox.com/s/31xgqvx7iety4l9/wolf.png");
@@ -33,6 +34,7 @@ ModPE.setItem(502,"head_sheep",0,"Sheep"); //13
 ModPE.setItem(503,"head_spider",0,"Spider"); //35
 ModPE.setItem(504,"head_pig",0,"Pig"); //12
 ModPE.setItem(505,"ender_pearl", 0,"Enderman");
+ModPE.setItem(506, "blaze_rod", 0,"Ocelot");
 ModPE.setFoodItem(493,"spider_eye",0,-2,"Spider eye");
 ModPE.setFoodItem(494,"rotten_flesh",0,-1,"Rotten Flesh");
 
@@ -79,6 +81,12 @@ if(item == 505)
 {
 var ender = Level.spawnMob(x, y+1, z,35,"mob/enderman.png");
 Entity.setRenderType(ender,EndermanRenderType.renderType);
+addItemInventory(item,-1, 0);
+}
+if(item == 506)
+{
+var ocelot = Level.spawnMob(x, y+1, z,11,"mob/ocelot.png");
+Entity.setRenderType(ocelot,OcelotRenderType.renderType);
 addItemInventory(item,-1, 0);
 }
 if(item == 497)
@@ -249,3 +257,53 @@ lArm.clear();
 var Wolf;
 var WolfRenderType = Renderer.createHumanoidRenderer();
 addWolfRenderType(WolfRenderType);
+
+
+function addOcelotRenderType(renderer) {
+var model = renderer.getModel();
+     
+    var head = model.getPart("head");
+    var body = model.getPart("body");
+    var rarm = model.getPart("rightArm");
+    var larm = model.getPart("leftArm");
+    var rleg = model.getPart("rightLeg");
+    var lleg = model.getPart("leftLeg");
+     
+    head.clear();
+    head.setTextureOffset(0, 0);
+    head.addBox(-1, 14, -7, 5, 4, 5);
+
+    head.setTextureOffset(11, 4);
+    head.addBox(-0.5,13,-4,1,1,2);
+
+head.setTextureOffset(11, 6);
+head.addBox(2.5,13,-4,1,1,2);
+
+head.setTextureOffset(1, 25);
+head.addBox(0, 16, -8, 3, 2, 1);
+
+ head.setRotationPoint(0, 0,0);
+
+    body.clear();
+    body.setTextureOffset(24, 10);
+    body.addBox(-0.5, 15, -2, 4, 6, 16);
+ 
+    
+ rarm.clear();
+    larm.clear();
+ 
+    rleg.clear();
+    rleg.setTextureOffset(40, 0);
+   rleg.addBox(0.9, 2.9, 0, 2, 9, 2);
+
+rleg.setTextureOffset(40, 0);
+ rleg.addBox(0.9,6, 11, 2, 5, 2);
+
+    lleg.clear();
+    lleg.setTextureOffset(40,0);
+    lleg.addBox(0.1, 2.9, 0, 2, 9, 2);
+lleg.setTextureOffset(40, 0);
+    lleg.addBox(0.1, 6, 11, 2, 5, 2);
+}
+var OcelotRenderType = Renderer.createHumanoidRenderer();
+addOcelotRenderType(OcelotRenderType);
