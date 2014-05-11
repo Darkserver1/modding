@@ -1,8 +1,8 @@
 //craftable animals mod
-//by Darkserver
+//by Darkserver and Thecactigod
 ModPE.overrideTexture("images/mob/ocelot.png","http://i.imgur.com/PVdsLnB.png"); 
-ModPE.overrideTexture("images/items.meta","http://dl.dropbox.com/s/jpgvuv8l4rgzvsd/items.meta");
-ModPE.overrideTexture("images/items-opaque.png","http://dl.dropbox.com/s/6xv9uok3akveyjd/items-opaque-2.png");
+ModPE.overrideTexture("images/items.meta","http://dl.dropbox.com/s/iwugr4e0qsxta5g/items%200.6.meta");
+ModPE.overrideTexture("images/items-opaque.png","http://dl.dropbox.com/s/gxcye8o80uo24uq/items-opaque%202.png");
 ModPE.overrideTexture("images/mob/wolf.png","http://dl.dropbox.com/s/31xgqvx7iety4l9/wolf.png");
 ModPE.overrideTexture("images/mob/wither.png","http://dl.dropbox.com/s/u95yjcfcg051t1n/wither%20skin.png");
 ModPE.overrideTexture("images/mob/enderman.png","http://i.imgur.com/UXzvOmn.png");
@@ -370,4 +370,3 @@ function addVillagerRenderType(renderer)
  
 var VillagerRenderType = Renderer.createHumanoidRenderer();
 addVillagerRenderType(VillagerRenderType);
- 
