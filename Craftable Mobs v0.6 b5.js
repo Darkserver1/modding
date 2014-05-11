@@ -6,6 +6,7 @@ ModPE.overrideTexture("images/items-opaque.png","http://dl.dropbox.com/s/6xv9uok
 ModPE.overrideTexture("images/mob/wolf.png","http://dl.dropbox.com/s/31xgqvx7iety4l9/wolf.png");
 ModPE.overrideTexture("images/mob/wither.png","http://dl.dropbox.com/s/u95yjcfcg051t1n/wither%20skin.png");
 ModPE.overrideTexture("images/mob/enderman.png","http://i.imgur.com/UXzvOmn.png");
+ModPE.overrideTexture("images/mob/villager.png","http://i.imgur.com/0dRU59r.png");
 var r = 0;
 var drop = Math.floor((Math.random()*4)+1);
 var heads = [496,497,498,499,500,501,502,503,504,493,494];
@@ -35,6 +36,7 @@ ModPE.setItem(503,"head_spider",0,"Spider"); //35
 ModPE.setItem(504,"head_pig",0,"Pig"); //12
 ModPE.setItem(505,"ender_pearl", 0,"Enderman");
 ModPE.setItem(506, "blaze_rod", 0,"Ocelot");
+ModPE.setItem(507,"blaze_powder", 0,"Villager");
 ModPE.setFoodItem(493,"spider_eye",0,-2,"Spider eye");
 ModPE.setFoodItem(494,"rotten_flesh",0,-1,"Rotten Flesh");
 
@@ -88,6 +90,13 @@ if(item == 506)
 var ocelot = Level.spawnMob(x, y+1, z,11,"mob/ocelot.png");
 Entity.setRenderType(ocelot,OcelotRenderType.renderType);
 addItemInventory(item,-1, 0);
+}
+if(item==507)
+{
+Villager = Level.spawnMob(x, y+1, z, 11, "mob/villager.png");
+        Entity.setHealth(Villager, 20);
+        Entity.setRenderType(Villager, VillagerRenderType.renderType);
+addItemInventory(item,-1);
 }
 if(item == 497)
 {
@@ -307,3 +316,45 @@ lleg.setTextureOffset(40, 0);
 }
 var OcelotRenderType = Renderer.createHumanoidRenderer();
 addOcelotRenderType(OcelotRenderType);
+
+function addVillagerRenderType(renderer) 
+{
+    var model = renderer.getModel();
+     
+    var head = model.getPart("head");
+    var body = model.getPart("body");
+    var rarm = model.getPart("rightArm");
+    var larm = model.getPart("leftArm");
+    var rleg = model.getPart("rightLeg");
+    var lleg = model.getPart("leftLeg");
+     
+    head.clear();
+    head.setTextureOffset(0, -2);
+    head.addBox(-2, -10, -2, 8, 10, 8);
+    head.setTextureOffset(24, 0);
+    head.addBox(1,-3,-4,2,4,2);
+ 
+    body.clear();
+    body.setTextureOffset(32, -4);
+    body.addBox(-2, 0, -2, 8, 18, 8);
+ 
+    rarm.clear();
+    rarm.setTextureOffset(34, 8);
+    rarm.addBox(-1, 0, -6, 4, 4, 8);
+    rarm.addBox(11, 0, -6, 4, 4, 8);
+    rarm.addBox(3, 0, -6, 8, 4, 4);
+ 
+    larm.clear();
+ 
+    rleg.clear();
+    rleg.setTextureOffset(0, 23);
+    rleg.addBox(0, 6, 0, 4, 5, 4);
+ 
+    lleg.clear();
+    lleg.setTextureOffset(0, 23);
+    lleg.addBox(0, 6, 0, 4, 5, 4);
+}
+ 
+var VillagerRenderType = Renderer.createHumanoidRenderer();
+addVillagerRenderType(VillagerRenderType);
+ 
