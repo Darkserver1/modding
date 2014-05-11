@@ -34,11 +34,14 @@ ModPE.setItem(501,"head_chicken",0,"Chicken"); //10
 ModPE.setItem(502,"head_sheep",0,"Sheep"); //13
 ModPE.setItem(503,"head_spider",0,"Spider"); //35
 ModPE.setItem(504,"head_pig",0,"Pig"); //12
-ModPE.setItem(505,"ender_pearl", 0,"Enderman");
-ModPE.setItem(506, "blaze_rod", 0,"Ocelot");
-ModPE.setItem(507,"blaze_powder", 0,"Villager");
+ModPE.setItem(505,"head_enderman", 0,"Enderman");
+ModPE.setItem(506, "head_ocelot", 0,"Ocelot");
+ModPE.setItem(507,"head_villager", 0,"Villager");
+ModPE.setItem(508,"head_pigman", 0,"Zombie Pigman");
 ModPE.setFoodItem(493,"spider_eye",0,-2,"Spider eye");
 ModPE.setFoodItem(494,"rotten_flesh",0,-1,"Rotten Flesh");
+//add enderpearls in 0.7
+//add gold nuggets in 0.7
 
 Item.addCraftRecipe(501,1,0,[288,6,0,365,3,0]); //chicken
 Item.addCraftRecipe(500,1,0,[334,4,0,363,5,0]); //cow
@@ -50,8 +53,11 @@ Item.addCraftRecipe(498,2,0,[352,4,0,262,4,0,261,1,0]); //skeleton
 Item.addCraftRecipe(499,4,0,[289,8,0,494,1,0]); //creeper
 Item.addCraftRecipe(496,2,0,[35,4,0,502,1,0]);
 Item.addCraftRecipe(495,2,0,[263,4,0,272,1,0,263,4,0]);
-Item.addCraftRecipe(505,2,0,[318,4,0,332,4,0,337,1,0]);
+Item.addCraftRecipe(505,7,0,[318,4,0,332,4,0,337,1,0]);
+//in 0.7 will use enderpearls but we have to make a way to get them
 //Enderman
+Item.addCraftRecipe(506,1,0[35,1,0,319,1,0]); //ocelot
+
 function useItem(x, y, z, item, block, side)
 {
 if(item == 501)
