@@ -16,19 +16,16 @@ You May:
 -Post a link to Official Topics - Of Mine
 
 Craftable Mobs Mod By 
-Darkserver and Thecactigod 
+Darkserver, Thecactigod, And Darkcube_lord704 
 Credits to MyNameIsAnti for His Renders
 and Sin0psysS (Lu_Lu54) for Wither Boss and Skeleton
 */
 
 /*
-Update 0.7.0
--Wither Boss
--Taller Wither Skeletons
--Slime
-crafting
--Magma Slime
-crafting
+Update 0.8.0
+-Mooshroom
+-Spider Jockey
+
 */
 ModPE.overrideTexture("images/mob/ocelot.png","http://i.imgur.com/PVdsLnB.png"); 
 ModPE.overrideTexture("images/items.meta","http://dl.dropbox.com/s/xtslmehgje85qko/CM_0.7.meta");
@@ -39,10 +36,10 @@ ModPE.overrideTexture("images/mob/enderman.png","http://i.imgur.com/UXzvOmn.png"
 ModPE.overrideTexture("images/mob/villager.png","http://i.imgur.com/0dRU59r.png");
 ModPE.overrideTexture("images/mob/slime.png","http://dl.dropbox.com/s/2hci3l99vtd0zkl/slime.png");
 ModPE.overrideTexture("images/mob/magma_cube.png","http://dl.dropbox.com/s/g6s5a1iwh68tgj2/magma_cube.png");
+ModPE.overrideTexture("images/mob/mooshroom.png","http://i.imgur.com/CnG0MKY.png");
 
-var r = 0;
-var drop = Math.floor((Math.random()*4)+1);
-var heads = [496,497,498,499,500,501,502,503,504,493,494];
+var r = Math.floor((Math.random()*15)+0);
+var drop = Math.floor((Math.random()*3)+0);
 
 var Spider = 35;
 var Zombie = 32;
@@ -57,6 +54,8 @@ dog cat mooshroom zombie_villager
 baby_zombie baby_pigmen zombie_jockey
 */
 
+ModPE.setItem(487,"head_spider_jockey",0,"Spider Jockey");
+ModPE.setItem(488,"head_mooshroom",0,"Mooshroom");
 ModPE.setItem(489,"magma_cream",0,"Magma Cream");
 ModPE.setItem(490,"gold_nugget",0,"Gold Nugget");
 ModPE.setItem(491,"ender_pearl",0,"Ender Pearl");
@@ -105,43 +104,51 @@ Item.addCraftRecipe(511,4,0,[489,8,0]); //magma cube
 
 function useItem(x, y, z, item, block, side)
 {
+//chicken
 if(item == 501)
 {
 Level.spawnMob(x, y+1, z, 10, "mob/chicken.png");
 addItemInventory(item,-1,0);
 }
+//cow
 if(item == 500)
 {
 Level.spawnMob(x, y+1, z, 11, "mob/cow.png");
 addItemInventory(item,-1,0);
 }
+//sheep
 if(item == 502)
 {
 Level.spawnMob(x, y+1, z, 13, "mob/sheep_"+r+".png");
 addItemInventory(item,-1,0);
 }
+//spider
 if(item == 503)
 {
 Level.spawnMob(x, y+1, z, 35, "mob/spider.png");
 addItemInventory(item,-1,0);
 }
+//pig
 if(item == 504)
 {
 Level.spawnMob(x, y+1, z, 12, "mob/pig.png");
 addItemInventory(item,-1,0);
 }
+//Enderman
 if(item == 505)
 {
 var ender = Level.spawnMob(x, y+1, z,35,"mob/enderman.png");
 Entity.setRenderType(ender,EndermanRenderType.renderType);
 addItemInventory(item,-1, 0);
 }
+//ocelot
 if(item == 506)
 {
 var ocelot = Level.spawnMob(x, y+1, z,11,"mob/ocelot.png");
 Entity.setRenderType(ocelot,OcelotRenderType.renderType);
 addItemInventory(item,-1, 0);
 }
+//villager
 if(item==507)
 {
 Villager = Level.spawnMob(x, y+1, z, 11, "mob/villager.png");
@@ -149,21 +156,25 @@ Villager = Level.spawnMob(x, y+1, z, 11, "mob/villager.png");
         Entity.setRenderType(Villager, VillagerRenderType.renderType);
 addItemInventory(item,-1);
 }
+//zombie
 if(item == 497)
 {
 Level.spawnMob(x, y+1, z, 32, "mob/zombie.png");
 addItemInventory(item,-1,0);
 }
+//skeleton
 if(item == 498)
 {
 Level.spawnMob(x, y+1, z, 34, "mob/skeleton.png");
 addItemInventory(item,-1,0);
 }
+//creeper
 if(item == 499)
 {
 Level.spawnMob(x, y+1, z, 33, "mob/creeper.png");
 addItemInventory(item,-1,0);
 }
+//wolf
 if(item == 496)
 {
 Wolf = Level.spawnMob(x,y+1,z,11,"mob/wolf.png");   
@@ -171,6 +182,7 @@ Entity.setRenderType(Wolf,WolfRenderType.renderType);
 Entity.setHealth(Wolf, 10);
 addItemInventory(item,-1,0);
 }
+//wither skeleton
 if(item == 495)
 {
 Wither = Level.spawnMob(x, y+1, z, 32, "mob/withers.png");
@@ -179,27 +191,45 @@ Entity.setHealth(Wither, 50);
 Entity.setRenderType(Wither,wskeletonRenderer.renderType);
 addItemInventory(item,-1,0);
 }
+//pigman
 if(item == 508)
 {
 Level.spawnMob(x, y+1, z, 36, "mob/pigzombie.png");
 addItemInventory(item,-1,0);
 }
+//wither
 if(item == 509)
 {
 wither = Level.spawnMob(x,y+1,z, 12, "mob/withers.png");
 Entity.setRenderType(wither, witherRenderer.renderType);
 Entity.setHealth(wither, 200);
 }
+//slime
 if(item == 510)
 {
 Slime = Level.spawnMob(x, y+1, z, 10, "mob/slime.png");
 Entity.setRenderType(Slime,SlimeRenderer.renderType);
 addItemInventory(item,-1,0);
 }
+//magma cube
 if(item == 511)
 {
 Magma = Level.spawnMob(x, y+1, z, 10, "mob/magma_cube.png");
 Entity.setRenderType(Magma,SlimeRenderer.renderType);
+addItemInventory(item,-1,0);
+}
+//mooshroom
+if(item == 488)
+{
+Level.spawnMob(x, y+1, z, 11, "mob/mooshroom.png");
+addItemInventory(item,-1,0);
+}
+//spider jockey
+if(item == 487) 
+{
+skelly=Level.spawnMob(x, y+1, z, 34);
+spider=Level.spawnMob(x, y+1, z,35);
+rideAnimal(skelly, spider); 
 addItemInventory(item,-1,0);
 }
 }
