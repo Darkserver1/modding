@@ -80,6 +80,8 @@ ModPE.setItem(511,"head_magma_slime", 0,"Magma Cube");
 ModPE.setFoodItem(493,"spider_eye",0,-2,"Spider eye");
 ModPE.setFoodItem(494,"rotten_flesh",0,-1,"Rotten Flesh");
 
+Item.addCraftRecipe(487,1,0,[493,6,0,352,10,0,35,10,0]); //spider jockey
+Item.addCraftRecipe(488,1,0,[40,4,0,363,4,0,334,6,0]); //mooshroom
 Item.addCraftRecipe(489,1,0,[341,1,0,289,1,0]); //magma cream
 Item.addCraftRecipe(341,3,0,[353,4,0,494,4,0,295,1,0]); //slimeball
 Item.addCraftRecipe(266,1,0,[490,9,0]); //gold
