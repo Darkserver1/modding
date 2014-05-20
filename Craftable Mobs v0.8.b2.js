@@ -25,7 +25,8 @@ and Sin0psysS (Lu_Lu54) for Wither Boss and Skeleton
 Update 0.8.0
 -Mooshroom
 -Spider Jockey
-
+-commands
+-ghast
 */
 ModPE.overrideTexture("images/mob/ocelot.png","http://i.imgur.com/PVdsLnB.png"); 
 ModPE.overrideTexture("images/items.meta","http://dl.dropbox.com/s/xtslmehgje85qko/CM_0.7.meta");
@@ -46,6 +47,7 @@ var Zombie = 32;
 var Wither;
 var Slime;
 var Magma;
+var ghast;
 /*
 Mobs to make; horse 
 spider_jockey poisionous_spider 
@@ -54,6 +56,7 @@ dog cat mooshroom zombie_villager
 baby_zombie baby_pigmen zombie_jockey
 */
 
+ModPE.setItem(486,"head_ghast",0,"Ghast");
 ModPE.setItem(487,"head_spider_jockey",0,"Spider Jockey");
 ModPE.setItem(488,"head_mooshroom",0,"Mooshroom");
 ModPE.setItem(489,"magma_cream",0,"Magma Cream");
@@ -232,6 +235,13 @@ if(item == 487)
 skelly=Level.spawnMob(x, y+1, z, 34);
 spider=Level.spawnMob(x, y+1, z,35);
 rideAnimal(skelly, spider); 
+addItemInventory(item,-1,0);
+}
+//ghast
+if(item == 486)
+{
+ghast = Level.spawnMob(x, y+1, z, 32, "mob/ghast.png");
+Entity.setRenderType(ghast,ghastRenderer.renderType);
 addItemInventory(item,-1,0);
 }
 }
@@ -552,6 +562,15 @@ if(unstuck==0)
 unstuck=-1;
 }
 }
+
+if(getTile(Entity.getX(ghast)+1,Entity.getY(ghast)+1,Entity.getZ(ghast))>0|| getTile(Entity.getX(ghast)-1,Entity.getY(ghast)+1,Entity.getZ(ghast))>0||getTile(Entity.getX(ghast),Entity.getY(ghast)+1,Entity.getZ(ghast)+1)>0||getTile(Entity.getX(ghast),Entity.getY(ghast)+1,Entity.getZ(ghast)-1)>0)
+{
+floating=true;
+}
+if(floating==true){
+Entity.setVelY(ghast, 0.5, 0.5, 0.5);
+floating=false;
+}
 }
 
 function addSlimeToRenderer(renderer)
@@ -817,3 +836,63 @@ model.getPart("rightLeg").clear()
 
 var witherRenderer = Renderer.createHumanoidRenderer();
 addWitherToRenderer(witherRenderer);
+
+function addghastRenderType(renderer)
+{
+var model = renderer.getModel();
+
+var body = model.getPart("body").clear();
+var rLeg = model.getPart("rightLeg").clear();
+var lLeg = model.getPart("leftLeg").clear();
+var head = model.getPart("head").clear();
+var rarm = model.getPart("rightArm").clear();
+var larm = model.getPart("leftArm").clear();
+
+  body.addBox(0, -60, 0, 16, 16, 16, 0);
+  body.addBox(1, -45, 6, 2, 10, 2, 0);
+  body.addBox(0.3, -45, 0, 2, 10, 2, 0);
+  body.addBox(1.3, -45, 13, 2, 10, 2, 0);
+  body.addBox(6.5, -45, 0, 2, 12, 2, 0);
+  body.addBox(13.4, -45, 0, 2, 10, 2, 0);
+  body.addBox(13, -45, 6, 2, 10, 2, 0);
+  body.addBox(6.5, -45, 13, 2, 12, 2, 0);
+  body.addBox(13, -45, 12, 2, 10, 2, 0);
+}
+
+var ghastRenderer = Renderer.createHumanoidRenderer();
+addghastRenderType(ghastRenderer);
+
+function procCmd(c)
+{
+var cmd = c.split(" ");
+if(cmd[0]=="heads")
+{
+//487-511
+//Player.addItemInventory(486,16);
+Player.addItemInventory(487,16);
+Player.addItemInventory(488,16);
+Player.addItemInventory(489,16);
+Player.addItemInventory(490,16);
+Player.addItemInventory(491,16);
+Player.addItemInventory(492,16);
+Player.addItemInventory(493,16);
+Player.addItemInventory(494,16);
+Player.addItemInventory(495,16);
+Player.addItemInventory(496,16);
+Player.addItemInventory(497,16);
+Player.addItemInventory(498,16);
+Player.addItemInventory(499,16);
+Player.addItemInventory(500,16);
+Player.addItemInventory(501,16);
+Player.addItemInventory(502,16);
+Player.addItemInventory(503,16);
+Player.addItemInventory(504,16);
+Player.addItemInventory(505,16);
+Player.addItemInventory(506,16);
+Player.addItemInventory(507,16);
+Player.addItemInventory(508,16);
+Player.addItemInventory(509,16);
+Player.addItemInventory(510,16);
+Player.addItemInventory(511,16);
+}
+}
