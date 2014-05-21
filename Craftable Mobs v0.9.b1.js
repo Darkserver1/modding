@@ -27,10 +27,15 @@ Update 0.8.0
 -Spider Jockey
 -commands
 -ghast
+-shear mooshroom (tap)
+-get soup from mooshroom (tap)
+-horse
+-witch
+-zombie villager
 */
 ModPE.overrideTexture("images/mob/ocelot.png","http://i.imgur.com/PVdsLnB.png"); 
-ModPE.overrideTexture("images/items.meta","http://dl.dropbox.com/s/xtslmehgje85qko/CM_0.7.meta");
-ModPE.overrideTexture("images/items-opaque.png","http://dl.dropbox.com/s/3z9qfwvt4b7pru3/CM_0.7.png");
+ModPE.overrideTexture("images/items.meta","http://dl.dropbox.com/s/nl80zqi0cgl1fwh/CM_0.8.meta");
+ModPE.overrideTexture("images/items-opaque.png","http://dl.dropbox.com/s/ubv8nynso3qfz81/CM_0.8.png");
 ModPE.overrideTexture("images/mob/wolf.png","http://dl.dropbox.com/s/31xgqvx7iety4l9/wolf.png");
 ModPE.overrideTexture("images/mob/withers.png","http://i.imgur.com/X1g5Kiq.png");
 ModPE.overrideTexture("images/mob/enderman.png","http://i.imgur.com/UXzvOmn.png");
@@ -41,6 +46,7 @@ ModPE.overrideTexture("images/mob/mooshroom.png","http://i.imgur.com/CnG0MKY.png
 
 var r = Math.floor((Math.random()*15)+0);
 var drop = Math.floor((Math.random()*3)+0);
+var floating;
 
 var Spider = 35;
 var Zombie = 32;
@@ -50,14 +56,14 @@ var Magma;
 var ghast;
 /*
 Mobs to make; horse 
-spider_jockey poisionous_spider 
-bat squid ghast horse magma_slime
-dog cat mooshroom zombie_villager
+poisionous_spider 
+bat squid magma_slime
+dog cat zombie_villager
 baby_zombie baby_pigmen zombie_jockey
 */
 
 ModPE.setItem(486,"head_ghast",0,"Ghast");
-ModPE.setItem(487,"head_spider_jockey",0,"Spider Jockey");
+ModPE.setItem(487,"head_jockey_spider",0,"Spider Jockey");
 ModPE.setItem(488,"head_mooshroom",0,"Mooshroom");
 ModPE.setItem(489,"magma_cream",0,"Magma Cream");
 ModPE.setItem(490,"gold_nugget",0,"Gold Nugget");
@@ -83,8 +89,8 @@ ModPE.setItem(511,"head_magma_slime", 0,"Magma Cube");
 ModPE.setFoodItem(493,"spider_eye",0,-2,"Spider eye");
 ModPE.setFoodItem(494,"rotten_flesh",0,-1,"Rotten Flesh");
 
-Item.addCraftRecipe(487,1,0,[493,6,0,352,10,0,35,10,0]); //spider jockey
-Item.addCraftRecipe(488,1,0,[40,4,0,363,4,0,334,6,0]); //mooshroom
+Item.addCraftRecipe(487,1,0,[503,1,0,498,1,0]); //spider jockey
+Item.addCraftRecipe(488,1,0,[40,8,0,500,1,0]); //mooshroom
 Item.addCraftRecipe(489,1,0,[341,1,0,289,1,0]); //magma cream
 Item.addCraftRecipe(341,3,0,[353,4,0,494,4,0,295,1,0]); //slimeball
 Item.addCraftRecipe(266,1,0,[490,9,0]); //gold
@@ -325,6 +331,22 @@ Level.dropItem(Entity.getX(victim), Entity.getY(victim) + 1, Entity.getZ(victim)
 
 function attackHook(attacker, victim)
 {
+if(Entity.getMobSkin(victim)=="mob/mooshroom.png")
+{
+var item = Player.getCarriedItem();
+if(item==359)
+{
+preventDefault();
+Entity.setMobSkin(victim,"mob/cow.png");
+Level.dropItem(Entity.getX(victim), Entity.getY(victim), Entity.getZ(victim),0,40,3,0);
+}
+if(item==281)
+{
+preventDefault();
+Player.addItemInventory(281,-1);
+Player.addItemInventory(282,1);
+}
+}
 if(Entity.getMobSkin(victim)=="mob/enderman.png")
 	{
 		var Teleport = Math.floor((Math.random()*4)+1);
@@ -848,19 +870,135 @@ var head = model.getPart("head").clear();
 var rarm = model.getPart("rightArm").clear();
 var larm = model.getPart("leftArm").clear();
 
-  body.addBox(0, -60, 0, 16, 16, 16, 0);
-  body.addBox(1, -45, 6, 2, 10, 2, 0);
-  body.addBox(0.3, -45, 0, 2, 10, 2, 0);
-  body.addBox(1.3, -45, 13, 2, 10, 2, 0);
-  body.addBox(6.5, -45, 0, 2, 12, 2, 0);
-  body.addBox(13.4, -45, 0, 2, 10, 2, 0);
-  body.addBox(13, -45, 6, 2, 10, 2, 0);
-  body.addBox(6.5, -45, 13, 2, 12, 2, 0);
-  body.addBox(13, -45, 12, 2, 10, 2, 0);
+  body.addBox(0, -30, 0, 16, 16, 16, 0);
+  body.addBox(1, -15, 6, 2, 10, 2, 0);
+  body.addBox(0.3, -15, 0, 2, 10, 2, 0);
+  body.addBox(1.3, -15, 13, 2, 10, 2, 0);
+  body.addBox(6.5, -15, 0, 2, 12, 2, 0);
+  body.addBox(13.4, -15, 0, 2, 10, 2, 0);
+  body.addBox(13, -15, 6, 2, 10, 2, 0);
+  body.addBox(6.5, -15, 13, 2, 12, 2, 0);
+  body.addBox(13, -15, 12, 2, 10, 2, 0);
 }
 
 var ghastRenderer = Renderer.createHumanoidRenderer();
 addghastRenderType(ghastRenderer);
+
+function addWitchRenderType(renderer) 
+{
+    var model = renderer.getModel();
+     
+    var head = model.getPart("head");
+    var body = model.getPart("body");
+    var rarm = model.getPart("rightArm");
+    var larm = model.getPart("leftArm");
+    var rleg = model.getPart("rightLeg");
+    var lleg = model.getPart("leftLeg");
+     
+    head.clear();
+    head.setTextureOffset(0, -2);
+    head.addBox(-6, -10, -2, 8, 10, 8);
+    head.setTextureOffset(24, 0);
+    head.addBox(-3,-3,-4,2,4,2);
+    head.setTextureOffset(8, 47);
+    head.addBox(-7, -12, -3, 10, 2, 10);
+    head.addBox(-6, -16, -2, 8, 4, 8);
+    head.addBox(-5, -20, -1, 6, 24, 6);
+    head.addBox(-4, -22, 0, 4, 2, 4);
+ 
+    body.clear();
+    body.setTextureOffset(34, -4);
+    body.addBox(-6, 0, -2, 8, 18, 8);
+ 
+    rarm.clear();
+    rarm.setTextureOffset(34, 8);
+    rarm.addBox(-5, 0, -6, 4, 4, 8);
+    rarm.addBox(7, 0, -6, 4, 4, 8);
+    rarm.addBox(-1, 0, -6, 8, 4, 4);
+ 
+    larm.clear();
+ 
+    rleg.clear();
+    rleg.setTextureOffset(0, 23);
+    rleg.addBox(-4, 6, 0, 4, 5, 4);
+ 
+    lleg.clear();
+    lleg.setTextureOffset(0, 23);
+    lleg.addBox(-4, 6, 0, 4, 5, 4);
+}
+ 
+var WitchRenderType = Renderer.createHumanoidRenderer();
+addWitchRenderType(WitchRenderType);
+
+function addHorseRenderType(renderer) 
+{
+    var model = renderer.getModel();
+     
+    var head = model.getPart("head");
+    var body = model.getPart("body");
+    var rarm = model.getPart("rightArm");
+    var larm = model.getPart("leftArm");
+    var rleg = model.getPart("rightLeg");
+    var lleg = model.getPart("leftLeg");
+     
+    head.clear();
+    head.setTextureOffset(0, 0);
+    head.addBox(-1, -5, -3, 4, 13, 8);
+	body.setTextureOffset(18, 0);
+    head.addBox(-1, -7, 2, 1, 2, 1);
+	body.setTextureOffset(18, 0);
+    head.addBox(2, -7, 2, 1, 2, 1);
+	body.setTextureOffset(18, 0);
+    head.addBox(-1, -5, -7, 4.4, 2, 4);
+	body.setTextureOffset(18, 0);
+    head.addBox(-1, -2.4, -7, 4.4, 2, 4);
+ 
+    body.clear();
+    body.setTextureOffset(18, 0);
+    body.addBox(-4, 3, 3, 10, 10, 20);
+	body.setTextureOffset(18, 0);
+    body.addBox(-4, 3, -1, 3, 5, 4);
+	body.setTextureOffset(18, 0);
+    body.addBox(3, 3, -1, 3, 5, 4);
+	body.setTextureOffset(18, 0);
+    body.addBox(-1, 8, -1, 4, 5, 4);
+ 
+    rarm.clear();
+
+ 
+    larm.clear();
+ 
+    rleg.clear();
+    rleg.setTextureOffset(0, 22);
+    rleg.addBox(-3, 9, -2, 4, 3, 4);
+	rleg.setTextureOffset(0, 22);
+    rleg.addBox(-3, 9, 19, 4, 3, 4);
+	rleg.setTextureOffset(18, 0);
+    rleg.addBox(-2, 4, -1, 3, 5, 3);
+	rleg.setTextureOffset(18, 0);
+    rleg.addBox(-2, 4, 20, 3, 5, 3);
+	rleg.setTextureOffset(18, 0);
+    rleg.addBox(-2, -4, -1, 3, 8, 4);
+	rleg.setTextureOffset(18, 0);
+    rleg.addBox(-2, 1, 19, 3, 3, 4);
+ 
+    lleg.clear();
+    lleg.setTextureOffset(0, 22);
+    lleg.addBox(1, 9, -2, 4, 3, 4);
+	lleg.setTextureOffset(0, 22);
+	lleg.addBox(1, 9, 19, 4, 3, 4);
+	lleg.setTextureOffset(18, 0);
+    lleg.addBox(1, 4, -1, 3, 5, 3);
+	lleg.setTextureOffset(18, 0);
+    lleg.addBox(1, 4, 20, 3, 5, 3);
+	lleg.setTextureOffset(18, 0);
+    lleg.addBox(1, -4, -1, 3, 8, 4);
+	lleg.setTextureOffset(18, 0);
+    lleg.addBox(1, 1, 19, 3, 3, 4);
+}
+ 
+var HorseRenderType = Renderer.createHumanoidRenderer();
+addHorseRenderType(HorseRenderType);
 
 function procCmd(c)
 {
